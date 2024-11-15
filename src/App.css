@@ -1951,15 +1951,17 @@ html, body {
 
   /*services*/
   .services-header{
-    margin-left: 12px;
+    text-align: center;
+    /* margin-left: 0px; */
     font-size: 3rem;
-    margin-bottom: -4px;
+    margin-bottom: -0.5rem;
     margin-top: -19px;
   }
   .services-para{
     left: 4%;
-    width: 96%;
+    width: 100%;
     font-size: 1rem;
+    text-align: center;
   }
   .services-video {
     margin: auto;
@@ -1971,7 +1973,7 @@ html, body {
   flex-direction: column; /* Stack elements on smaller screens */
 }
 .featured-cars-header{
-  margin-top: -58px;
+  margin-top: 19px;
 }
 
 
@@ -2241,7 +2243,7 @@ html, body {
 }
 
 /* Responsive Design */
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 1024px) {
   .services-header {
       font-size: 2rem;
   }
