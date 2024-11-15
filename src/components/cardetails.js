@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { MapPin, Calendar, Mail, Phone, MessageCircle, Info, Share2, Heart, ChevronLeft, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import car1 from '../images/ferrari.jpeg';
+import car2 from '../images/backview.jpg'
+import car3 from '../images/interiorf8.jpg'
+import avator from '../images/avator.jpg'
 
 const CarDetail = () => {
   const navigate = useNavigate();
@@ -16,9 +20,10 @@ const CarDetail = () => {
     location: "Miami, FL",
     mileage: "1,200",
     images: [
-      "/api/placeholder/800/400",
-      "/api/placeholder/800/400",
-      "/api/placeholder/800/400"
+      car1,
+      car2,
+      car3,
+      
     ],
     description: "The Ferrari F8 Tributo is the new mid-rear-engined sports car that represents the highest expression of the Prancing Horse's classic two-seater berlinetta. It is a car with unique characteristics and, as its name implies, is an homage to Ferrari's most powerful V8 engine ever.",
     specifications: {
@@ -33,7 +38,7 @@ const CarDetail = () => {
       rating: 4.8,
       phone: "+1 (305) 555-0123",
       email: "sales@luxuryautomiami.com",
-      image: "/api/placeholder/150/150",
+      image: avator,
       title: "Premium Car Specialist",
       experience: "15+ years",
       responseTime: "Usually responds within 1 hour"
@@ -48,11 +53,15 @@ const CarDetail = () => {
   };
 
   const [selectedImage, setSelectedImage] = useState(car.images[0]);
-
+  const handleBack = () => {
+    setTimeout(() => {
+      navigate('/search');
+    }, 100);
+  };
   return (
-    <div className="car-detail relative">
+    <div className="car-detail relative" id="car-detail-section">
       <div className={showContactInfo ? 'blur-sm' : ''}>
-        <button onClick={() => navigate('/search')} className="back-button">
+        <button onClick={handleBack} className="back-button">
           <ChevronLeft /> Back to Search
         </button>
 

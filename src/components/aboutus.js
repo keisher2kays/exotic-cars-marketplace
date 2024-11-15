@@ -1,6 +1,6 @@
 import React from 'react';
-import ferrari from './images/ferrari.jpeg'
-import laren from './images/laren.jpeg'
+import ferrari from '../images/ferrari.jpeg'
+import laren from '../images/laren.jpeg'
 
 export default function LuxuryCarRental() {
   return (
@@ -39,32 +39,6 @@ export default function LuxuryCarRental() {
           </p>
         </div>
       </div>
-
-      {/* Features Section */}
-      <div className="features-section">
-        <div className="features-container">
-          <div className="feature-card">
-            <h3>Premium Fleet</h3>
-            <p>Access to the world's most exclusive luxury and sports cars</p>
-          </div>
-          <div className="feature-card">
-            <h3>24/7 Service</h3>
-            <p>Round-the-clock support and vehicle delivery</p>
-          </div>
-          <div className="feature-card">
-            <h3>Tailored Experience</h3>
-            <p>Customized rental packages to match your preferences</p>
-          </div>
-        </div>
-      </div>
-
-      
-      {/* <div className="cta-section">
-        <h2>Ready for an Extraordinary Drive?</h2>
-        <button className="cta-button">
-          Reserve Your Experience
-        </button>
-      </div> */}
     </div>
   );
 }

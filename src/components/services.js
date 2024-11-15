@@ -39,7 +39,7 @@
 import React from 'react';
 // import video from './bmw2.mp4'
 import FeaturedCars from './featuredcars';
-import racing from './videos/racing.mp4';
+import racing from '../videos/racing.mp4';
 
 const Services = () => {
     return (
@@ -68,7 +68,23 @@ const Services = () => {
 
             <FeaturedCars/>
 
-         
+           {/* Features Section */}
+      <div className="features-section">
+        <div className="features-container">
+          <div className="feature-card">
+            <h3>Premium Fleet</h3>
+            <p>Access to the world's most exclusive luxury and sports cars</p>
+          </div>
+          <div className="feature-card">
+            <h3>24/7 Service</h3>
+            <p>Round-the-clock support and vehicle delivery</p>
+          </div>
+          <div className="feature-card">
+            <h3>Tailored Experience</h3>
+            <p>Customized rental packages to match your preferences</p>
+          </div>
+        </div>
+      </div>
         </div>
     );
 };

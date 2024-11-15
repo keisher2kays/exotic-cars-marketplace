@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Filter, SlidersHorizontal, Grid, List, Map } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+import car1 from '../images/ferrari.jpeg'
+import car2 from '../images/lambo.jpeg'
+import car3 from '../images/porsche911.jpg'
+import car4 from '../images/laren.jpeg'
 const CarLocator = () => {
 const navigate = useNavigate();
   const [viewMode, setViewMode] = useState('grid');
   const [priceRange, setPriceRange] = useState([0, 1000000]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [yearFilter, setYearFilter] = useState('All Years');
+  const [mileageFilter, setMileageFilter] = useState('Any Mileage');
+  const [locationFilter, setLocationFilter] = useState('All Locations');
 
   // Sample data
   const cars = [
@@ -16,7 +23,7 @@ const navigate = useNavigate();
       year: 2023,
       location: "Miami, FL",
       mileage: "1,200",
-      image: "/api/placeholder/400/300",
+      image: car1,
       coordinates: { lat: 25.7617, lng: -80.1918 }
     },
     {
@@ -26,7 +33,7 @@ const navigate = useNavigate();
       year: 2022,
       location: "Los Angeles, CA",
       mileage: "3,500",
-      image: "/api/placeholder/400/300",
+      image: car2,
       coordinates: { lat: 34.0522, lng: -118.2437 }
     },
     {
@@ -36,7 +43,7 @@ const navigate = useNavigate();
       year: 2021,
       location: "New York, NY",
       mileage: "5,000",
-      image: "/api/placeholder/400/300",
+      image: car3,
       coordinates: { lat: 40.7128, lng: -74.0060 }
     },
     {
@@ -46,13 +53,56 @@ const navigate = useNavigate();
       year: 2023,
       location: "San Francisco, CA",
       mileage: "1,000",
-      image: "/api/placeholder/400/300",
+      image: car4,
       coordinates: { lat: 37.7749, lng: -122.4194 }
     },
   ];
 
-  // Filter cars based on price range
-  const filteredCars = cars.filter(car => car.price >= priceRange[0] && car.price <= priceRange[1]);
+  
+  const filteredCars = cars.filter(car =>
+    car.price >= priceRange[0] &&
+    car.price <= priceRange[1] &&
+    (car.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+     car.location.toLowerCase().includes(searchQuery.toLowerCase())) &&
+    (yearFilter === 'All Years' || car.year === parseInt(yearFilter)) &&
+    (mileageFilter === 'Any Mileage' || (
+      mileageFilter === 'Under 1,000' && parseInt(car.mileage.replace(',', '')) < 1000
+    ) || (
+      mileageFilter === 'Under 5,000' && parseInt(car.mileage.replace(',', '')) < 5000
+    ) || (
+      mileageFilter === 'Under 10,000' && parseInt(car.mileage.replace(',', '')) < 10000
+    )) &&
+    (locationFilter === 'All Locations' || car.location === locationFilter)
+  );
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleYearFilterChange = (e) => {
+    setYearFilter(e.target.value);
+  };
+
+  const handleMileageFilterChange = (e) => {
+    setMileageFilter(e.target.value);
+  };
+
+  const handleLocationFilterChange = (e) => {
+    setLocationFilter(e.target.value);
+  };
+
+  const handleCardClick = (carId) => {
+
+    navigate(`/car/${carId}`);
+  
+    // After navigation, smoothly scroll to the car detail section
+    setTimeout(() => {
+      const element = document.getElementById('car-detail-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
 
   return (
     <div className="car-locator">
@@ -67,6 +117,8 @@ const navigate = useNavigate();
                 type="text"
                 placeholder="Search by make, model, or keyword..."
                 className="search-input"
+                value={searchQuery}
+                onChange={handleSearchChange}
               />
             </div>
             <div className="header-buttons">
@@ -117,7 +169,8 @@ const navigate = useNavigate();
 
               <div className="filter-section">
                 <label className="filter-label">Year</label>
-                <select className="filter-select">
+                <select className="filter-select"  value={yearFilter}
+                  onChange={handleYearFilterChange}>
                   <option>All Years</option>
                   <option>2024</option>
                   <option>2023</option>
@@ -127,7 +180,8 @@ const navigate = useNavigate();
 
               <div className="filter-section">
                 <label className="filter-label">Mileage</label>
-                <select className="filter-select">
+                <select className="filter-select"    value={mileageFilter}
+                  onChange={handleMileageFilterChange}>
                   <option>Any Mileage</option>
                   <option>Under 1,000</option>
                   <option>Under 5,000</option>
@@ -137,7 +191,8 @@ const navigate = useNavigate();
 
               <div className="filter-section">
                 <label className="filter-label">Location</label>
-                <select className="filter-select">
+                <select className="filter-select"   value={locationFilter}
+                  onChange={handleLocationFilterChange}>
                   <option>All Locations</option>
                   <option>Miami, FL</option>
                   <option>Los Angeles, CA</option>
@@ -175,7 +230,7 @@ const navigate = useNavigate();
             {/* Car Listings */}
             <div className={`car-listings ${viewMode}`}>
               {filteredCars.map(car => (
-                <div key={car.id} className="card-card"  onClick={() => navigate(`/car/${car.id}`)}
+                <div key={car.id} className="card-card"    onClick={() => handleCardClick(car.id)}
                 style={{ cursor: 'pointer' }}>
                   <div className="card-image">
                     <img src={car.image} alt={car.name} />

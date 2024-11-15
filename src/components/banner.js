@@ -1,4 +1,4 @@
-import video from './bmw2.mp4'
+import video from '../videos/bmw2.mp4'
 const Banner = () => {
     return ( 
         <div>
@@ -8,8 +8,8 @@ const Banner = () => {
         Your browser does not support the video tag.
       </video>
       <div className="overlay">
-        <h1>high perfomance exotic cars for you</h1>
-        <p>Find your dream car today!</p>
+        <h1 className='main-header'>High perfomance exotic cars for you</h1>
+        <p className='para-middle'>Find your dream car today!</p>
       </div>
     </div>
 
