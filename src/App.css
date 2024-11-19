@@ -2138,68 +2138,7 @@ html, body {
     margin-top: -25px;
   }
 }
-/* @media  (min-width: 820px) {
- 
-  .main-header {
-    font-size: 2.5em;
-    width: 18em;
-}
-.welcome-section p{
-  font-size: 0.9rem;
-}
-.about-section p {
-  font-size: 0.9rem;
-}
-.grid-container {
-  grid-template-columns: 1fr;
-  padding: 16px;
-}
 
-.features-container {
-  grid-template-columns: 1fr;
-}
-
-.welcome-section,
-.about-section {
-  padding: 32px;
-}
-
-.welcome-section h1 {
-  font-size: 2.5rem;
-}
-
-.welcome-section h2,
-.about-section h2,
-.cta-section h2 {
-  font-size: 1.75rem;
-}
-
-.car-image {
-  min-height: 250px;
-}
-.services-content{
-  flex-direction: column;
-}
-.services-video{
-  margin: auto;
-}
-.services-para{
-  margin-bottom: 2em;
-  font-size: 0.9em;
-  width: 54em;
-  left: 3%;
-}
-.services-header{
-  margin-left: 5em;
-}
-.services-description {
-  margin-top: -3em;
-}
-.featured-cars-header {
-  margin-top: 1em;
-}
-
-} */
 
 
 .services-content {
@@ -2259,13 +2198,14 @@ html, body {
     font-size: 0.9rem;
   }
   .grid-container {
-    grid-template-columns: 1fr;
-    padding: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: 1fr; */
+    padding: 32px;
   }
 
-  .features-container {
+  /* .features-container {
     grid-template-columns: 1fr;
-  }
+  } */
 
   .welcome-section,
   .about-section {
@@ -2283,28 +2223,12 @@ html, body {
   }
 
   .car-image {
-    min-height: 250px;
+    min-height: 100%;
   }
   .luxury-rental{
-    min-height: 81vh;
+    min-height: 60vh;
   }
 }
-
-/* @media screen and (max-width: 768px) {
-  .services-content {
-      flex-direction: column;
-      padding: 1.5rem 1rem;
-  }
-  
-  .services-description {
-      width: 100%;
-      text-align: center;
-  }
-  
-  .services-video {
-      width: 100%;
-  }
-} */
 
  @media screen and (max-width: 480px) {
 .main-header{
