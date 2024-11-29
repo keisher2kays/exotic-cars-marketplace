@@ -1,64 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Filter, SlidersHorizontal, Grid, List, Map } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import car1 from '../images/ferrari.jpeg'
-import car2 from '../images/lambo.jpeg'
-import car3 from '../images/porsche911.jpg'
-import car4 from '../images/laren.jpeg'
+import axios from 'axios'; // Import axios
+import Modal from '../components/Modal';
+
 const CarLocator = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [viewMode, setViewMode] = useState('grid');
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [searchQuery, setSearchQuery] = useState('');
   const [yearFilter, setYearFilter] = useState('All Years');
   const [mileageFilter, setMileageFilter] = useState('Any Mileage');
   const [locationFilter, setLocationFilter] = useState('All Locations');
-
-  // Sample data
-  const cars = [
-    {
-      id: 1,
-      name: "Ferrari F8 Tributo",
-      price: 276000,
-      year: 2023,
-      location: "Miami, FL",
-      mileage: "1,200",
-      image: car1,
-      coordinates: { lat: 25.7617, lng: -80.1918 }
-    },
-    {
-      id: 2,
-      name: "Lamborghini Huracán",
-      price: 242000,
-      year: 2022,
-      location: "Los Angeles, CA",
-      mileage: "3,500",
-      image: car2,
-      coordinates: { lat: 34.0522, lng: -118.2437 }
-    },
-    {
-      id: 3,
-      name: "Porsche 911",
-      price: 150000,
-      year: 2021,
-      location: "New York, NY",
-      mileage: "5,000",
-      image: car3,
-      coordinates: { lat: 40.7128, lng: -74.0060 }
-    },
-    {
-      id: 4,
-      name: "McLaren 720S",
-      price: 300000,
-      year: 2023,
-      location: "San Francisco, CA",
-      mileage: "1,000",
-      image: car4,
-      coordinates: { lat: 37.7749, lng: -122.4194 }
-    },
-  ];
+  const [cars, setCars] = useState([]); // State to hold car data
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
   
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/cars2'); // Replace with your actual API endpoint
+        setCars(response.data); // Set the fetched data to the cars state
+      } catch (error) {
+        console.error('Error fetching car data:', error);
+      }
+    };
+
+    fetchCars();
+  }, []); // Empty dependency array means this runs once when the component mounts
+
+  
+
   const filteredCars = cars.filter(car =>
     car.price >= priceRange[0] &&
     car.price <= priceRange[1] &&
@@ -74,6 +46,14 @@ const navigate = useNavigate();
     )) &&
     (locationFilter === 'All Locations' || car.location === locationFilter)
   );
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -91,17 +71,9 @@ const navigate = useNavigate();
     setLocationFilter(e.target.value);
   };
 
-  const handleCardClick = (carId) => {
-
-    navigate(`/car/${carId}`);
-  
-    // After navigation, smoothly scroll to the car detail section
-    setTimeout(() => {
-      const element = document.getElementById('car-detail-section');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
+  const handleCardClick = (car) => {
+    const carId = car._id;
+    navigate(`/car/${carId}`, { state: { scrollToDetail: true } });
   };
 
   return (
@@ -140,7 +112,8 @@ const navigate = useNavigate();
           <aside className="filters-sidebar">
             <div className="filter-card">
               <h3 className="filter-title">
-                <SlidersHorizontal className="filter-icon" /> Filters
+                <SlidersHorizontal className="
+ filter-icon" /> Filters
               </h3>
               
               <div className="filter-section">
@@ -169,8 +142,7 @@ const navigate = useNavigate();
 
               <div className="filter-section">
                 <label className="filter-label">Year</label>
-                <select className="filter-select"  value={yearFilter}
-                  onChange={handleYearFilterChange}>
+                <select className="filter-select" value={yearFilter} onChange={handleYearFilterChange}>
                   <option>All Years</option>
                   <option>2024</option>
                   <option>2023</option>
@@ -180,8 +152,7 @@ const navigate = useNavigate();
 
               <div className="filter-section">
                 <label className="filter-label">Mileage</label>
-                <select className="filter-select"    value={mileageFilter}
-                  onChange={handleMileageFilterChange}>
+                <select className="filter-select" value={mileageFilter} onChange={handleMileageFilterChange}>
                   <option>Any Mileage</option>
                   <option>Under 1,000</option>
                   <option>Under 5,000</option>
@@ -191,13 +162,12 @@ const navigate = useNavigate();
 
               <div className="filter-section">
                 <label className="filter-label">Location</label>
-                <select className="filter-select"   value={locationFilter}
-                  onChange={handleLocationFilterChange}>
+                <select className="filter-select" value={locationFilter} onChange={handleLocationFilterChange}>
                   <option>All Locations</option>
-                  <option>Miami, FL</option>
-                  <option>Los Angeles, CA</option>
-                  <option>New York, NY</option>
-                  <option>San Francisco, CA</option>
+                  <option>Harare</option>
+                  <option>Bulawayo</option>
+                  <option>Norton</option>
+                  <option>Mutare</option>
                 </select>
               </div>
             </div>
@@ -230,10 +200,12 @@ const navigate = useNavigate();
             {/* Car Listings */}
             <div className={`car-listings ${viewMode}`}>
               {filteredCars.map(car => (
-                <div key={car.id} className="card-card"    onClick={() => handleCardClick(car.id)}
+                <div  key={car._id || car.id} 
+                className="card-card" 
+                onClick={() => handleCardClick(car)} 
                 style={{ cursor: 'pointer' }}>
                   <div className="card-image">
-                    <img src={car.image} alt={car.name} />
+                     <img src={`http://localhost:5000/${car.images[2]}`} alt={car.name} />
                   </div>
                   <div className="card-details">
                     <h3 className="card-name">{car.name}</h3>
@@ -252,6 +224,11 @@ const navigate = useNavigate();
                 </div>
               ))}
             </div>
+
+            <button onClick={handleOpenModal} className="see-more-cars-button">
+              See More Cars
+            </button>
+            {isModalOpen && <Modal onClose={handleCloseModal} />}
           </div>
         </div>
       </main>

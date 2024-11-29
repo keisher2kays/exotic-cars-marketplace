@@ -8,6 +8,8 @@ import LuxuryCarRental from './components/aboutus';
   import { Routes, Route } from 'react-router-dom'; 
   import Footer from './components/footer';
    import ScrollToTop from './components/Animatedcarpages';
+   import Dashboard from './components/dashboard';
+   import FormPage from './components/form';
     function App() { 
         return (  
              <div className="App">   
@@ -24,7 +26,9 @@ import LuxuryCarRental from './components/aboutus';
                           <CarLocator/>       
                           </div>      
                            <Routes>       
-                              <Route path="/car/:id" element={<CarDetailsPage />} />    
+                              <Route path="/car/:id" element={<CarDetailsPage />} />   
+                              <Route path="/dashboard" element={<Dashboard />} />
+                              <Route path="/form" element={<FormPage />} /> 
                                  </Routes>     
                                    <Footer/>   
                                      </div>  

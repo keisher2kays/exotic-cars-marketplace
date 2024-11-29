@@ -2236,3 +2236,81 @@ html, body {
 }
 } 
 
+.see-more-cars-button {
+  margin-top: 20px; /* Add some space above the button */
+  padding: 10px 20px; /* Add padding for a better look */
+  background-color: #007bff; /* Change to your preferred color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.see-more-cars-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+/* src/components/Modal.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+.modal-content {
+  background: black;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Set a width for the modal */
+}
+
+.close-button {
+  margin-top: 10px;
+  background-color: #f44336; /* Red color for close button */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between; /* Space between title and close icon */
+  align-items: center; /* Center vertically */
+}
+
+.close-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-icon:hover {
+  color: #f44336; /* Change color on hover */
+}
+.labelling{
+  color: white;
+}
+.filling{
+  margin-left: 4px;
+  border-radius: 4px;
+  border: 2px solid white;
+}
+.bottom{
+  margin-top: 10px;
+}
+.login-button{
+  margin-top: 10px;
+}
+.login-button:hover{
+  color: white;
+  background-color: #0056b3;
+  border: 2px solid #0056b3;
+}
