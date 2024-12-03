@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Filter, SlidersHorizontal, Grid, List, Map } from 'lucide-react';
+import { Search, MapPin, Filter, SlidersHorizontal, Grid, List, Map, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 import Modal from '../components/Modal';
 
 const CarLocator = () => {
@@ -12,24 +12,60 @@ const CarLocator = () => {
   const [yearFilter, setYearFilter] = useState('All Years');
   const [mileageFilter, setMileageFilter] = useState('Any Mileage');
   const [locationFilter, setLocationFilter] = useState('All Locations');
-  const [cars, setCars] = useState([]); // State to hold car data
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [cars, setCars] = useState([]); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
+  const [showAllCars, setShowAllCars] = useState(false);
+  const [initialCarsCount, setInitialCarsCount] = useState(4);
+  const [originalCars, setOriginalCars] = useState([]);
+  const [isInitialView, setIsInitialView] = useState(true);
 
-  
-  useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/cars2'); // Replace with your actual API endpoint
-        setCars(response.data); // Set the fetched data to the cars state
-      } catch (error) {
-        console.error('Error fetching car data:', error);
+  const fetchCars = async (location = '') => {
+    try {
+      const response = await axios.get(`https://mechanical-else-keisherdev-38b3431a.koyeb.app/api/cars2`, {
+        params: { location }
+      });
+
+      if (!originalCars.length) {
+        setOriginalCars(response.data);
       }
-    };
 
-    fetchCars();
-  }, []); // Empty dependency array means this runs once when the component mounts
+      setCars(response.data);
+      
+      if (location && response.data.length === 0) {
+        setIsInitialView(false);
+      }
+    } catch (error) {
+      console.error('Error fetching car data:', error);
+    }
+  };
 
-  
+  useEffect(() => {
+
+    const storedLocation = localStorage.getItem('userLocation');
+    if (storedLocation) {
+      setUserLocation(storedLocation);
+      fetchCars(storedLocation);
+      setIsInitialView(false);
+    } else {
+      fetchCars();
+    }
+  }, []);
+
+  const handleLocationSubmit = (location) => {
+    setUserLocation(location);
+    fetchCars(location);
+    setIsModalOpen(false);
+    setShowAllCars(false);
+    setIsInitialView(false);
+  };
+
+  const handleBackToInitialCars = () => {
+    setCars(originalCars);
+    setUserLocation(null);
+    setShowAllCars(false);
+    setIsInitialView(true);
+  };
 
   const filteredCars = cars.filter(car =>
     car.price >= priceRange[0] &&
@@ -47,6 +83,10 @@ const CarLocator = () => {
     (locationFilter === 'All Locations' || car.location === locationFilter)
   );
 
+  const displayedCars = showAllCars 
+    ? filteredCars 
+    : filteredCars.slice(0, initialCarsCount);
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -55,8 +95,9 @@ const CarLocator = () => {
     setIsModalOpen(false);
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+  const handleCardClick = (car) => {
+    const carId = car._id;
+    navigate(`/car/${carId}`, { state: { scrollToDetail: true } });
   };
 
   const handleYearFilterChange = (e) => {
@@ -71,17 +112,29 @@ const CarLocator = () => {
     setLocationFilter(e.target.value);
   };
 
-  const handleCardClick = (car) => {
-    const carId = car._id;
-    navigate(`/car/${carId}`, { state: { scrollToDetail: true } });
+  const handleShowMoreCars = (value) => {
+    setShowAllCars(value);
   };
 
   return (
     <div className="car-locator">
-      {/* Search Header */}
       <header className="search-header">
         <div className="container">
-          <h2 className="carlocater-header">Locate your car</h2>
+          {!isInitialView && (
+            <button 
+              onClick={handleBackToInitialCars} 
+              className="back-button"
+            >
+              <ArrowLeft /> Back
+            </button>
+          )}
+
+          <h2 className="carlocater-header">
+            {userLocation 
+              ? `Cars near ${userLocation}` 
+              : 'Locate your car'
+            }
+          </h2>
           <div className="search-wrapper">
             <div className="search-input-wrapper">
               <Search className="search-icon" />
@@ -90,11 +143,14 @@ const CarLocator = () => {
                 placeholder="Search by make, model, or keyword..."
                 className="search-input"
                 value={searchQuery}
-                onChange={handleSearchChange}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <div className="header-buttons">
-              <button className="icon-button">
+              <button 
+                className="icon-button" 
+                onClick={handleOpenModal}
+              >
                 <MapPin />
               </button>
               <button className="icon-button">
@@ -107,13 +163,10 @@ const CarLocator = () => {
 
       <main className="main-content container">
         <div className="content-wrapper">
-
-          {/* Filters Sidebar */}
           <aside className="filters-sidebar">
             <div className="filter-card">
               <h3 className="filter-title">
-                <SlidersHorizontal className="
- filter-icon" /> Filters
+                <SlidersHorizontal className="filter-icon" /> Filters
               </h3>
               
               <div className="filter-section">
@@ -173,9 +226,7 @@ const CarLocator = () => {
             </div>
           </aside>
 
-          {/* Main Content Area */}
           <div className="cars-display">
-            {/* View Toggle */}
             <div className="view-toggle">
               <button 
                 className={`view-button ${viewMode === 'grid' ? 'active' : ''}`}
@@ -197,38 +248,65 @@ const CarLocator = () => {
               </button>
             </div>
 
-            {/* Car Listings */}
-            <div className={`car-listings ${viewMode}`}>
-              {filteredCars.map(car => (
-                <div  key={car._id || car.id} 
-                className="card-card" 
-                onClick={() => handleCardClick(car)} 
-                style={{ cursor: 'pointer' }}>
-                  <div className="card-image">
-                     <img src={`http://localhost:5000/${car.images[2]}`} alt={car.name} />
-                  </div>
-                  <div className="card-details">
-                    <h3 className="card-name">{car.name}</h3>
-                    <div className="card-specs">
-                      <span className="card-year">{car.year}</span>
-                      <span className="card-mileage">{car.mileage} miles</span>
-                    </div>
-                    <div className="card-location">
-                      <MapPin className="location-icon" />
-                      {car.location}
-                    </div>
-                    <div className="card-price">
-                      ${car.price.toLocaleString()}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {filteredCars.length === 0 && userLocation && (
+              <div className="no-cars-container">
+                <h2>No cars available in {userLocation}</h2>
+                <button 
+                  onClick={handleBackToInitialCars} 
+                  className="back-to-cars-button"
+                >
+                  <ArrowLeft /> Back to All Cars
+                </button>
+              </div>
+            )}
 
-            <button onClick={handleOpenModal} className="see-more-cars-button">
-              See More Cars
-            </button>
-            {isModalOpen && <Modal onClose={handleCloseModal} />}
+            {filteredCars.length > 0 && (
+              <div className={`car-listings ${viewMode}`}>
+                {displayedCars.map(car => (
+                  <div  
+                    key={car._id || car.id} 
+                    className="card-card" 
+                    onClick={() => handleCardClick(car)} 
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className="card-image">
+                      <img src={`https://mechanical-else-keisherdev-38b3431a.koyeb.app/${car.images[2]}`} alt={car.name} />
+                    </div>
+                    <div className="card-details">
+                      <h3 className="card-name">{car.name}</h3>
+                      <div className="card-specs">
+                        <span className="card-year">{car.year}</span>
+                        <span className="card-mileage">{car.mileage} miles</span>
+                      </div>
+                      <div className="card-location">
+                        <MapPin className="location-icon" />
+                        {car.location}
+                      </div>
+                      <div className="card-price">
+                        ${car.price.toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {!showAllCars && filteredCars.length > initialCarsCount && (
+              <button 
+                onClick={handleOpenModal} 
+                className="see-more-cars-button"
+              >
+                See More Cars
+              </button>
+            )}
+
+            {isModalOpen && (
+              <Modal 
+                onClose={handleCloseModal}
+                onSubmitLocation={handleLocationSubmit}
+                onShowMoreCars={handleShowMoreCars}
+              />
+            )}
           </div>
         </div>
       </main>
@@ -237,5 +315,3 @@ const CarLocator = () => {
 };
 
 export default CarLocator;
-
-
