@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useCallback } from 'react';
 import { Search, MapPin, Filter, SlidersHorizontal, Grid, List, Map, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -16,11 +16,44 @@ const CarLocator = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [showAllCars, setShowAllCars] = useState(false);
-  const [initialCarsCount, setInitialCarsCount] = useState(4);
+  const initialCarsCount = 4; 
+  // const [initialCarsCount, setInitialCarsCount] = useState(4);
   const [originalCars, setOriginalCars] = useState([]);
   const [isInitialView, setIsInitialView] = useState(true);
 
-  const fetchCars = async (location = '') => {
+  // const fetchCars = async (location = '') => {
+  //   try {
+  //     const response = await axios.get(`https://mechanical-else-keisherdev-38b3431a.koyeb.app/api/cars2`, {
+  //       params: { location }
+  //     });
+
+  //     if (!originalCars.length) {
+  //       setOriginalCars(response.data);
+  //     }
+
+  //     setCars(response.data);
+      
+  //     if (location && response.data.length === 0) {
+  //       setIsInitialView(false);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching car data:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+
+  //   const storedLocation = localStorage.getItem('userLocation');
+  //   if (storedLocation) {
+  //     setUserLocation(storedLocation);
+  //     fetchCars(storedLocation);
+  //     setIsInitialView(false);
+  //   } else {
+  //     fetchCars();
+  //   }
+  // }, [fetchCars]);
+
+  const fetchCars = useCallback(async (location = '') => {
     try {
       const response = await axios.get(`https://mechanical-else-keisherdev-38b3431a.koyeb.app/api/cars2`, {
         params: { location }
@@ -38,10 +71,9 @@ const CarLocator = () => {
     } catch (error) {
       console.error('Error fetching car data:', error);
     }
-  };
+  }, [originalCars.length]);
 
   useEffect(() => {
-
     const storedLocation = localStorage.getItem('userLocation');
     if (storedLocation) {
       setUserLocation(storedLocation);
@@ -50,7 +82,8 @@ const CarLocator = () => {
     } else {
       fetchCars();
     }
-  }, []);
+  }, [fetchCars]);
+
 
   const handleLocationSubmit = (location) => {
     setUserLocation(location);
