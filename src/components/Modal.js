@@ -108,7 +108,7 @@ const Modal = ({ onClose, onSubmitLocation, onShowMoreCars }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content2">
         <div className="modal-header">
           <h2>Find Cars Near You</h2>
           <button onClick={onClose} className="close-icon">

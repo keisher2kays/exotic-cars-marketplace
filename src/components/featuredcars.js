@@ -65,7 +65,7 @@ const FeaturedCars = () => {
                             <X size={24} />
                         </button>
                         
-                        <img src={`http://localhost:5000/${selectedCar.image}`} alt={selectedCar.name} className="modal-image" />
+                        <img src={`https://mechanical-else-keisherdev-38b3431a.koyeb.app/${selectedCar.image}`} alt={selectedCar.name} className="modal-image" />
                         <h3 className="modal-title">{selectedCar.name}</h3>
                         <p className="modal-price">{selectedCar.price}</p>
                         <p className="modal-description">{selectedCar.description}</p>

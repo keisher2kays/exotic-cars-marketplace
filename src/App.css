@@ -2044,7 +2044,7 @@ html, body {
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color:black;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 2rem;
@@ -2055,7 +2055,7 @@ html, body {
 
 .close-button {
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   right: 1rem;
   background-color: transparent;
   border: none;
@@ -2065,8 +2065,8 @@ html, body {
 
 .modal-image {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 40vh;
+  object-fit: contain;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -2075,6 +2075,7 @@ html, body {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .modal-price {
@@ -2084,6 +2085,7 @@ html, body {
 }
 
 .modal-description {
+  color: white;
   line-height: 1.5;
 }
 
@@ -2263,7 +2265,7 @@ html, body {
   z-index: 1000; /* Ensure it appears above other content */
 }
 
-.modal-content {
+.modal-content2 {
   background: black;
   padding: 20px;
   border-radius: 8px;
