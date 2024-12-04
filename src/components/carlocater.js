@@ -485,14 +485,7 @@ const CarLocator = () => {
     <div className="car-locator">
       <header className="search-header">
         <div className="container">
-          {!isInitialView && (
-            <button 
-              onClick={handleBackToInitialCars} 
-              className="back-button"
-            >
-              <ArrowLeft /> Back
-            </button>
-          )}
+         
 
           <h2 className="carlocater-header">
             {userLocation 
@@ -523,6 +516,7 @@ const CarLocator = () => {
               </button>
             </div>
           </div>
+         
         </div>
       </header>
 
@@ -663,6 +657,14 @@ const CarLocator = () => {
                     See More Cars
                   </button>
                 )}
+                 {!isInitialView && (
+            <button 
+              onClick={handleBackToInitialCars} 
+              className="back-button"
+            >
+              <ArrowLeft /> Back
+            </button>
+          )}
 
                 {/* {isModalOpen && (
                   <Modal 
