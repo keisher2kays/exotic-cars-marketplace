@@ -418,7 +418,7 @@ const CarLocator = () => {
     setUserLocation(location);
     fetchCars(location);
     setIsModalOpen(false);
-    setShowAllCars(false);
+    // setShowAllCars(false);
     setIsInitialView(false);
   };
 
@@ -660,13 +660,19 @@ const CarLocator = () => {
                   </button>
                 )}
 
-                {isModalOpen && (
+                {/* {isModalOpen && (
                   <Modal 
                     onClose={handleCloseModal}
                     onSubmitLocation={handleLocationSubmit}
                     onShowMoreCars={handleShowMoreCars}
                   />
-                )}
+                )} */}
+                {isModalOpen && (
+  <Modal 
+    onClose={handleCloseModal}
+    onSubmitLocation={handleLocationSubmit}
+  />
+)}
               </>
             )}
           </div>
