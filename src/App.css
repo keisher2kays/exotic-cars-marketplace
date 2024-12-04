@@ -2316,3 +2316,56 @@ html, body {
   background-color: #0056b3;
   border: 2px solid #0056b3;
 }
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 300px;
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Loading Spinner Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+  color: #3498db; /* Primary blue color */
+  margin-bottom: 1rem;
+}
+
+/* Loading Text Styles */
+.loading-text {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  color: #6c757d; /* Soft gray color for text */
+  font-weight: 500;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .loading-container {
+    min-height: 200px;
+    padding: 1rem;
+  }
+
+  .loading-spinner {
+    width: 48px;
+    height: 48px;
+  }
+
+  .loading-text {
+    font-size: 1rem;
+  }
+}
