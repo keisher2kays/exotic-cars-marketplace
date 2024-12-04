@@ -2369,3 +2369,29 @@ html, body {
     font-size: 1rem;
   }
 }
+
+
+.location-input{
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid white;
+  height: 5vh;
+}
+.submit-location-button{
+  margin-top: 10px;
+  background-color: #007bff;
+  border-radius: 5px;
+  border: 2px solid #007bff;
+  height: 5vh;
+}
+.search-icon{
+  display: none;
+}
+.modal-close-button{
+  border-radius: 5px;
+  border: 2px solid #007bff;
+  color: white;
+  background-color: #007bff;
+  height: 5vh;
+  padding: 2%;
+}
