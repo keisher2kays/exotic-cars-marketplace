@@ -63,12 +63,12 @@
 // export default Navigation;
 
 
-import React, { useState } from 'react';
-import { User } from 'lucide-react';
-import Modal from '../components/Modal';
+// import React, { useState } from 'react';
+// import { User } from 'lucide-react';
+// import Modal from '../components/Modal';
 
 const Navigation = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -80,19 +80,19 @@ const Navigation = () => {
     }
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  // const handleOpenModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
-  const handleSubmitLocation = (location) => {
-    // This can be expanded to store user location in state or context
-    localStorage.setItem('userLocation', location);
-    handleCloseModal();
-  };
+  // const handleSubmitLocation = (location) => {
+  //   // This can be expanded to store user location in state or context
+  //   localStorage.setItem('userLocation', location);
+  //   // handleCloseModal();
+  // };
 
   return (
     <>
@@ -140,23 +140,11 @@ const Navigation = () => {
           }}>Locate Car</a>
           
           {/* Login/User Icon */}
-          <button 
-            onClick={handleOpenModal} 
-            className="login-icon-button"
-          >
-            <User size={24} />
-          </button>
+          
         </div>
       </nav>
 
-      {/* Modal Integration */}
-      {isModalOpen && (
-        <Modal 
-          onClose={handleCloseModal}
-          onSubmitLocation={handleSubmitLocation}
-          onShowMoreCars={() => {}}  // Optional: can be used if needed
-        />
-      )}
+     
     </>
   );
 };
