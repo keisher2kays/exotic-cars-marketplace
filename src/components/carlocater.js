@@ -411,6 +411,8 @@ const CarLocator = () => {
       setIsInitialView(false);
     } else {
       fetchCars();
+      setUserLocation(null);
+    setIsInitialView(true);
     }
   }, [fetchCars]);
 
@@ -473,6 +475,7 @@ const CarLocator = () => {
   const handleLocationFilterChange = (e) => {
     setLocationFilter(e.target.value);
   };
+  localStorage.removeItem('userLocation');
 
   // const handleShowMoreCars = (value) => {
   //   setShowAllCars(value);
