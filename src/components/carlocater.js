@@ -474,9 +474,9 @@ const CarLocator = () => {
     setLocationFilter(e.target.value);
   };
 
-  const handleShowMoreCars = (value) => {
-    setShowAllCars(value);
-  };
+  // const handleShowMoreCars = (value) => {
+  //   setShowAllCars(value);
+  // };
 
   return (
     <div className="car-locator">
@@ -653,7 +653,8 @@ const CarLocator = () => {
 
                 {!showAllCars && filteredCars.length > initialCarsCount && (
                   <button 
-                    onClick={() => handleShowMoreCars(true)} 
+                    // onClick={() => handleShowMoreCars(true)} 
+                    onClick={() => { setIsModalOpen(true); }} 
                     className="see-more-cars-button"
                   >
                     See More Cars
