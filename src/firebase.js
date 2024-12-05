@@ -1,19 +1,44 @@
-// src/firebase.js
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCVou9eA-hVZffKPSTDfcBIpR0BRs3NRxM",
+//   authDomain: "exotic-marketplace-2d5ec.firebaseapp.com",
+//   projectId: "exotic-marketplace-2d5ec",
+//   storageBucket: "exotic-marketplace-2d5ec.firebasestorage.app",
+//   messagingSenderId: "950688266459",
+//   appId: "1:950688266459:web:a6d23750a0d1a984b6b4fe",
+//   measurementId: "G-BGLB39B7ZE"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDHj8ldcueyWTji7gvkQHTLT3bY9TYXyVE",
-    authDomain: "exotic-marketplace.firebaseapp.com",
-    projectId: "exotic-marketplace",
-    storageBucket: "exotic-marketplace.firebasestorage.app",
-    messagingSenderId: "277219039915",
-    appId: "1:277219039915:web:9bc193e4aa1a7fb6e1f5ee",
-    measurementId: "G-MH1TXPE38H"
-  };
+  apiKey: "AIzaSyCVou9eA-hVZffKPSTDfcBIpR0BRs3NRxM",
+  authDomain: "exotic-marketplace-2d5ec.firebaseapp.com",
+  projectId: "exotic-marketplace-2d5ec",
+  storageBucket: "exotic-marketplace-2d5ec.firebasestorage.app",
+  messagingSenderId: "950688266459",
+  appId: "1:950688266459:web:a6d23750a0d1a984b6b4fe",
+  measurementId: "G-BGLB39B7ZE"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { db };
+export { auth, db, analytics };

@@ -2395,3 +2395,36 @@ html, body {
   height: 5vh;
   padding: 2%;
 }
+.main-container{
+  background-color: black;
+  padding: 20px;
+  color: white;
+}
+
+.x-button{
+  background-color: #007bff;
+  color: white;
+  border: 2px solid #007bff;
+}
+.text-field{
+  border-radius: 7px;
+    height: 3vh;
+    width: 100%;
+    border: 2px solid white;
+}
+.text-inside{
+  border-radius: 7px;
+  border: 2px solid white;
+  color: #007bff;
+}
+.logging-button{
+  border-radius: 7px;
+  border: 2px solid white;
+  width: 100%;
+}
+.login-icon-button{
+  background-color: black;
+    color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 7px;
+}
