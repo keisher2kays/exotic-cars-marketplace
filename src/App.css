@@ -2428,3 +2428,10 @@ html, body {
     border: 2px solid #007bff;
     border-radius: 7px;
 }
+.google-button{
+  color: black;
+  justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
