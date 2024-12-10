@@ -21,14 +21,17 @@ const Navigation = () => {
     <>
       <nav className="navbar">
         <div className="brand">
+        
+            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24">
+              {/* Existing SVG content */}
+            
+            </svg>
+          
+
           <a href="#home" onClick={(e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24">
-              {/* Existing SVG content */}
-            </svg>
-          </a>
           <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24">
           <mask id="lineMdSpeedometerLoop0">
              <path fill="none" stroke="#fff" strokeDasharray="48" strokeDashoffset="48" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" d="M5.64 19.36c-3.52 -3.51 -3.52 -9.21 0 -12.72c3.51 -3.52 9.21 -3.52 12.72 -0c3.52 3.51 3.52 9.21 0 12.72">
@@ -46,6 +49,11 @@ const Navigation = () => {
           </mask>
           <rect width="24" height="24" fill="#2563eb" mask="url(#lineMdSpeedometerLoop0)" />
         </svg>
+        </a>
+
+
+
+
           <h2 className="logo-nav">EXOTIC</h2>
         </div>
         <div className="nav-links">
