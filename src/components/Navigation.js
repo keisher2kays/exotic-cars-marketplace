@@ -21,13 +21,6 @@ const Navigation = () => {
     <>
       <nav className="navbar">
         <div className="brand">
-        
-            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24">
-              {/* Existing SVG content */}
-            
-            </svg>
-          
-
           <a href="#home" onClick={(e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });

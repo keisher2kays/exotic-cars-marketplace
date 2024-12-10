@@ -1866,7 +1866,7 @@ html, body {
 .brand {
   display: flex;
   align-items: center;
-  margin-left: -58px;
+  /* margin-left: -58px; */
 }
 
 /* Add these new styles for smooth scrolling */
