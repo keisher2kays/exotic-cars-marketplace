@@ -2427,6 +2427,7 @@ html, body {
     color: #007bff;
     border: 2px solid #007bff;
     border-radius: 7px;
+    cursor: pointer;
 }
 .google-button{
   color: black;
